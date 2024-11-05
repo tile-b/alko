@@ -11,12 +11,14 @@ import darko from './darko.png';
 import jazic from './jazic.png';
 import sone from './sone.png';
 import dusan from './dusan.png';
-import deja from './deja.png';
+import doca from './doca.jpg';
+// import mldj from './jovmldj.jpg'
+import konor from './konor.jpg'
 import ci from './vinjak.png';
 
 class App extends React.Component {
   state = {
-    list: [kum, ja, deja, dusan, coa, jazic, sone, darko],
+    list: [kum, ja, doca, dusan, coa, jazic, sone, darko, konor],
     radius: 75, // PIXELS
     rotate: 0, // DEGREES
     easeOut: 0, // SECONDS
@@ -118,7 +120,7 @@ class App extends React.Component {
         baseSize + Math.sin(angle - arc / 2) * imageRadius
       );
       ctx.rotate(angle - arc / 2 + Math.PI / 2);
-      ctx.drawImage(img, -30, -30, 50, 66);
+      ctx.drawImage(img, -30, -30, 45, 66);
       ctx.restore();
     };
   }
