@@ -1,5 +1,7 @@
 body {
-  background: linear-gradient(to left, rgb(138, 52, 52), rgb(97, 97, 199));
+  background-image: url('./51339.gif'); /* Path to your image */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
   margin: 0; /* Remove default body margin */
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
@@ -18,6 +20,14 @@ canvas {
   height: 500px; /* Set a fixed height for the canvas */
 
 }
+.ab{
+  font-size: 30px;
+  text-shadow: 
+  -1px -1px 0 white,  
+   1px -1px 0 white,
+  -1px  1px 0 white,
+   1px  1px 0 white;
+}
 
 #reset:hover {
   color: red;
@@ -27,15 +37,15 @@ canvas {
 
 
 #readout {
-  bottom: 2vh;
-  left: 0px;
+
+  padding-bottom: 100px;
 }
 
 
 #selector {
   position: absolute;
-  top: 50vw;
-  font-size: 40px;
+  top: 48vw;
+  font-size: 50px;
   z-index: 3;
 }
 

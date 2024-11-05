@@ -12,7 +12,7 @@ import jazic from './jazic.png';
 import sone from './sone.png';
 import dusan from './dusan.png';
 import deja from './deja.png';
-import ci from './centerImage.png';
+import ci from './vinjak.png';
 
 class App extends React.Component {
   state = {
@@ -53,7 +53,7 @@ class App extends React.Component {
   drawCenterImage() {
     let canvas = document.getElementById("wheel");
     let ctx = canvas.getContext("2d");
-    const centerImageSize = 80; // Adjust the size of the center image
+    const centerImageSize = 120; // Adjust the size of the center image
     const x = canvas.width / 2 - centerImageSize / 2; // Centering the image horizontally
     const y = canvas.height / 2 - centerImageSize / 2; // Centering the image vertically
 
@@ -127,7 +127,7 @@ class App extends React.Component {
     let r = Math.floor(Math.random() * 255);
     let g = Math.floor(Math.random() * 255);
     let b = Math.floor(Math.random() * 255);
-    return `rgba(${r},${g},${b},0.4)`;
+    return `rgba(${r},${g},${b},1)`;
   }
 
   spin = () => {
@@ -192,7 +192,7 @@ class App extends React.Component {
           <div className="buttonB-bottom"></div>
           <div className="buttonB-base"></div>
         </button>
-        <span id="selector">&#9660;</span>
+        <span id="selector" style={{color: 'red'}}>&#9660;</span>
         <canvas
           id="wheel"
           width="500" // Keep these dimensions fixed
@@ -203,6 +203,7 @@ class App extends React.Component {
           }}
         />
         <div>
+            <div className="ab">Srecni Dobitnik:</div>
           <span id="readout">
             {"  "}
             <span id="result">
@@ -211,6 +212,7 @@ class App extends React.Component {
               )}
             </span>
           </span>
+          <div style={{marginTop: '30vw'}}>***</div>
         </div>
       </div>
     );
