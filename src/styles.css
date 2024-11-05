@@ -1,0 +1,56 @@
+body {
+  background: linear-gradient(to left, rgb(138, 52, 52), rgb(97, 97, 199));
+  margin: 0; /* Remove default body margin */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex; /* Use flexbox for centering */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+overflow: hidden;
+}
+
+canvas {
+  width: 500px; /* Set a fixed width for the canvas */
+  height: 500px; /* Set a fixed height for the canvas */
+
+}
+
+#reset:hover {
+  color: red;
+  border-color: red;
+}
+
+
+
+#readout {
+  bottom: 2vh;
+  left: 0px;
+}
+
+
+#selector {
+  position: absolute;
+  top: 50vw;
+  font-size: 40px;
+  z-index: 3;
+}
+
+#result{
+  font-size:50px;
+  color: rgb(0, 180, 120);
+}
+
+input {
+  font-size: 16px;
+  border:none;
+  border-bottom: 1px solid black
+}
+/* styles.css */
+
+.display{
+  margin-top: 30px;
+}
