@@ -51,9 +51,10 @@ canvas {
 
 #result{
   position: absolute;
-  bottom: 42%;
-  left: 37%;
+  bottom: 43%;
+  left: 40%;
   color: rgb(0, 180, 120);
+  
 }
 
 input {
@@ -65,4 +66,32 @@ input {
 
 .display{
   margin-top: 30px;
+}
+
+
+
+/* Optional CSS styles */
+label:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4caf50; /* Green color for checked boxes */
+  border: 2px solid #4caf50;
+}
+
+input[type="checkbox"]:checked + span {
+  color: #5c1b1b; /* Change text color when checked */
+}
+
+input[type="checkbox"]:not(:checked) {
+  background-color: #f1f1f1; /* Light background for unchecked boxes */
+  border: 2px solid #ccc; /* Subtle border for unchecked boxes */
+}
+
+label {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }

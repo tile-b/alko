@@ -13,19 +13,20 @@ import dusan from "./dusan.png";
 import doca from "./doca.jpg";
 import mldj from './jovmldj.jpg';
 import vinjak from "./vinjak.png";
+import gajba from './gajba.png'
 
 class App extends React.Component {
   state = {
     allImages: [
-      { src: kum, label: "Kum" },
-      { src: ja, label: "Ja" },
+      { src: kum, label: "Mitrije" },
+      { src: ja, label: "Tica" },
       { src: doca, label: "Doca" },
       { src: dusan, label: "Dusan" },
       { src: coa, label: "Coa" },
       { src: jazic, label: "Jazic" },
       { src: sone, label: "Sone" },
       { src: darko, label: "Darko" },
-      { src: mldj, label: "Mldj" },
+      { src: mldj, label: "Mladji" },
     ],
     list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
     radius: 75,
@@ -128,12 +129,12 @@ class App extends React.Component {
   drawCenterImage() {
     const canvas = document.getElementById("wheel");
     const ctx = canvas.getContext("2d");
-    const centerImageSize = 120;
+    const centerImageSize = 150;
     const x = canvas.width / 2 - centerImageSize / 2;
     const y = canvas.height / 2 - centerImageSize / 2;
 
     const img = new Image();
-    img.src = vinjak;
+    img.src = gajba;
     img.onload = () => {
       ctx.drawImage(img, x, y, centerImageSize, centerImageSize);
     };
@@ -230,6 +231,8 @@ class App extends React.Component {
           disabled={this.state.spinning}
         >
           <div className="buttonB-top">Zavrti</div>
+          <div className="buttonB-bottom"></div>
+          <div className="buttonB-base"></div>
         </button>
         <span id="selector"><img style={{width: '32vw'}} src={vinjak} alt="vinj"/></span>
 
@@ -242,25 +245,43 @@ class App extends React.Component {
             transition: `transform ${this.state.easeOut}s ease-out`,
           }}
         />
+<div style={{ zIndex: 1300, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px' }}>
+  {this.state.allImages.map(({ src, label }) => (
+    <label
+      key={label}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '10px',
+        fontSize: '16px',
+        fontFamily: 'Arial, sans-serif',
+        color: 'rgb(126 86 86 / 63%)',
+        cursor: 'pointer',
+        transition: 'transform 0.3s ease',
+      }}
+    >
+      <input
+        type="checkbox"
+        onChange={(e) => this.handleCheckboxChange(src, e.target.checked)}
+        checked={this.state.list.includes(src)}
+        style={{
+          width: '20px',
+          height: '20px',
+          marginRight: '10px',
+          cursor: 'pointer',
+        }}
+      />
+      <span style={{ textTransform: 'capitalize', fontWeight: '800' }}>{label}</span>
+    </label>
+  ))}
+</div>
 
-        <div style={{zIndex:1300}}>
-          {this.state.allImages.map(({ src, label }) => (
-            <label key={label}>
-              <input
-                type="checkbox"
-                onChange={(e) => this.handleCheckboxChange(src, e.target.checked)}
-                checked={this.state.list.includes(src)}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
 
         <div>
-          <span id="readout">
+          <span id="result">
             {this.state.result !== null && (
               <img
-                style={{ maxWidth: "100px", border: '2px solid rgb(178, 189, 26)' }}
+                style={{ maxWidth: "80px",height: '100px' , border: '2px solid rgb(178, 189, 26)' }}
                 src={this.state.list[this.state.result]}
                 alt="prize"
               />
