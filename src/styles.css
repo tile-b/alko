@@ -44,13 +44,15 @@ canvas {
 
 #selector {
   position: absolute;
-  top: 48vw;
-  font-size: 50px;
+  top: 30vw;
   z-index: 3;
+  rotate: 180deg;
 }
 
 #result{
-  font-size:50px;
+  position: absolute;
+  bottom: 42%;
+  left: 37%;
   color: rgb(0, 180, 120);
 }
 
