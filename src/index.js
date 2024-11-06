@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 import "./button.css";
 
-// Import your images
 import kum from "./kum.png";
 import ja from "./ja.png";
 import coa from "./coa.png";
@@ -12,11 +11,22 @@ import jazic from "./jazic.png";
 import sone from "./sone.png";
 import dusan from "./dusan.png";
 import doca from "./doca.jpg";
-import mldj from './jovmldj.jpg'
+import mldj from './jovmldj.jpg';
 import vinjak from "./vinjak.png";
 
 class App extends React.Component {
   state = {
+    allImages: [
+      { src: kum, label: "Kum" },
+      { src: ja, label: "Ja" },
+      { src: doca, label: "Doca" },
+      { src: dusan, label: "Dusan" },
+      { src: coa, label: "Coa" },
+      { src: jazic, label: "Jazic" },
+      { src: sone, label: "Sone" },
+      { src: darko, label: "Darko" },
+      { src: mldj, label: "Mldj" },
+    ],
     list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
     radius: 75,
     rotate: 0,
@@ -31,56 +41,64 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.preloadImages().then(() => {
-      this.renderWheel();
-    });
+    this.preloadImages();
   }
+  
 
-  // Preload all images
   preloadImages = () => {
-    const imagePromises = this.state.list.map((src) => {
+    const imagePromises = this.state.allImages.map(({ src }) => {
       return new Promise((resolve) => {
         const img = new Image();
         img.src = src;
         img.onload = () => resolve(img);
       });
     });
-
-    return Promise.all(imagePromises).then((images) => {
-      this.setState({ images });
+  
+    Promise.all(imagePromises).then((images) => {
+      this.setState({ images }, () => {
+        // Ensure wheel is rendered after images are loaded
+        this.renderWheel();
+      });
     });
+  };
+  handleCheckboxChange = (image, checked) => {
+    this.setState(
+      (prevState) => ({
+        list: checked
+          ? [...prevState.list, image]
+          : prevState.list.filter((img) => img !== image),
+      }),
+      () => this.renderWheel()
+    );
   };
 
   renderWheel() {
-    const numOptions = this.state.images.length;
+    const { list, images } = this.state;
+    if (list.length === 0 || images.length === 0) return;
+
+    const numOptions = list.length;
     const arcSize = (2 * Math.PI) / numOptions;
     this.setState({ angle: arcSize });
-    this.topPosition(numOptions, arcSize);
+    this.calculateTopPosition(numOptions, arcSize);
+
+    const canvas = document.getElementById("wheel");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     let angle = 0;
     for (let i = 0; i < numOptions; i++) {
-      let image = this.state.images[i];
+      const imageIndex = this.state.allImages.findIndex(img => img.src === list[i]);
+      const image = images[imageIndex];
       this.renderSector(i + 1, image, angle, arcSize, this.getColor());
       angle += arcSize;
     }
     this.drawCenterImage();
   }
 
-  drawCenterImage() {
-    const canvas = document.getElementById("wheel");
-    const ctx = canvas.getContext("2d");
-    const centerImageSize = 120;
-    const x = canvas.width / 2 - centerImageSize / 2;
-    const y = canvas.height / 2 - centerImageSize / 2;
-
-    const img = new Image();
-    img.src = vinjak;
-    img.onload = () => {
-      ctx.drawImage(img, x, y, centerImageSize, centerImageSize);
-    };
-  }
-
-  topPosition(num, angle) {
+  calculateTopPosition(num, angle) {
     let topSpot = null;
     let degreesOff = null;
 
@@ -107,6 +125,20 @@ class App extends React.Component {
     });
   }
 
+  drawCenterImage() {
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const centerImageSize = 120;
+    const x = canvas.width / 2 - centerImageSize / 2;
+    const y = canvas.height / 2 - centerImageSize / 2;
+
+    const img = new Image();
+    img.src = vinjak;
+    img.onload = () => {
+      ctx.drawImage(img, x, y, centerImageSize, centerImageSize);
+    };
+  }
+
   renderSector(index, image, start, arc, color) {
     const canvas = document.getElementById("wheel");
     const ctx = canvas.getContext("2d");
@@ -131,7 +163,9 @@ class App extends React.Component {
       baseSize + Math.sin(angle - arc / 2) * imageRadius
     );
     ctx.rotate(angle - arc / 2 + Math.PI / 2);
-    ctx.drawImage(image, -30, -30, 45, 66);
+    if (image instanceof HTMLImageElement) {
+      ctx.drawImage(image, -30, -30, 45, 66);
+    }
     ctx.restore();
   }
 
@@ -196,10 +230,9 @@ class App extends React.Component {
           disabled={this.state.spinning}
         >
           <div className="buttonB-top">Zavrti</div>
-          <div className="buttonB-bottom"></div>
-          <div className="buttonB-base"></div>
         </button>
         <span id="selector"><img style={{width: '32vw'}} src={vinjak} alt="vinj"/></span>
+
         <canvas
           id="wheel"
           width="500"
@@ -209,18 +242,29 @@ class App extends React.Component {
             transition: `transform ${this.state.easeOut}s ease-out`,
           }}
         />
+
+        <div style={{zIndex:1300}}>
+          {this.state.allImages.map(({ src, label }) => (
+            <label key={label}>
+              <input
+                type="checkbox"
+                onChange={(e) => this.handleCheckboxChange(src, e.target.checked)}
+                checked={this.state.list.includes(src)}
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+
         <div>
           <span id="readout">
-            {"  "}
-            <span id="result">
-              {this.state.result !== null && (
-                <img
-                  style={{ maxWidth: "100px",  border: '2px solid rgb(178, 189, 26)' }}
-                  src={this.state.list[this.state.result]}
-                  alt="prize"
-                />
-              )}
-            </span>
+            {this.state.result !== null && (
+              <img
+                style={{ maxWidth: "100px", border: '2px solid rgb(178, 189, 26)' }}
+                src={this.state.list[this.state.result]}
+                alt="prize"
+              />
+            )}
           </span>
           <div style={{ marginTop: "30vw" }}>***</div>
         </div>
