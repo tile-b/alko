@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import './button.css'
 
 const InstallPrompt = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showInstallButton, setShowInstallButton] = useState(false);
 
-  // Listen for the beforeinstallprompt event
   useEffect(() => {
+    // Listen for beforeinstallprompt event
     const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault();  // Prevent the default prompt from showing
-      setDeferredPrompt(e); // Store the event so it can be triggered later
-      setShowInstallButton(true); // Show the install button
+      e.preventDefault(); // Prevent the default install prompt from appearing
+      setDeferredPrompt(e); // Store the event to trigger later
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -19,23 +18,30 @@ const InstallPrompt = () => {
     };
   }, []);
 
-  // Function to trigger the install prompt
   const handleInstallClick = () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();  // Show the install prompt
       deferredPrompt.userChoice.then((choiceResult) => {
-        console.log(choiceResult.outcome); // Log the user's choice (either "accepted" or "dismissed")
-        setDeferredPrompt(null); // Reset the deferred prompt
-        setShowInstallButton(false); // Hide the install button after the prompt
+        console.log(choiceResult.outcome); // Log user choice (either 'accepted' or 'dismissed')
+        setDeferredPrompt(null); // Reset deferredPrompt
       });
     }
   };
 
   return (
-    <div>
-      {showInstallButton && (
-        <button onClick={handleInstallClick}>Install App</button>
-      )}
+    <div style={{display: 'flex', justifyContent: 'center',paddingTop: '40px'}}>
+      <button class="buttonD" onClick={handleInstallClick}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24px" width="24px">
+    <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+    <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g id="Interface / Download">
+        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#f1f1f1" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" id="Vector"></path>
+      </g>
+    </g>
+  </svg>
+  Skini Aplikaciju
+</button>
     </div>
   );
 };

@@ -4,7 +4,6 @@ import "./styles.css";
 import "./button.css";
 import SideNav from "./SideNav";
 import './sidenav.css';
-import InstallPrompt from './InstallPrompt'
 
 import kum from "./kum.png";
 import ja from "./ja.png";
@@ -233,9 +232,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
 
-<InstallPrompt />
+      <div className="App">
         
         <h1>ALKOHOLISANJE        <SideNav
           allImages={this.state.allImages}
@@ -295,9 +293,11 @@ class App extends React.Component {
 </div>
 
       </div>
+
     );
   }
 }
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+

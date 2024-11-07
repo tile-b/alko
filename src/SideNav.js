@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaGear } from "react-icons/fa6";
+import InstallPrompt from './InstallPrompt';
 
 import './sidenav.css';
 import './styles.css'
@@ -78,6 +79,7 @@ function SideNav({ allImages, list, handleCheckboxChange }) {
 
           ))}
         </div>
+        <InstallPrompt />
       </div>
       <span style={{ fontSize: '30px', cursor: 'pointer', paddingRight: '5px' }} onClick={openNav}>
         <FaGear />

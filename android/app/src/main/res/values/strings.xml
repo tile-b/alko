@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Na EKS</string>
+    <string name="title_activity_main">Na EKS</string>
+    <string name="package_name">alkosi.netlify.app</string>
+    <string name="custom_url_scheme">alkosi.netlify.app</string>
+</resources>
