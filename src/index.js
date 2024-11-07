@@ -20,15 +20,15 @@ import gajba from './gajba.png';
 class App extends React.Component {
   state = {
     allImages: [
-      { src: kum, label: "Mitrije" },
+      { src: kum, label: "Vlast" },
       { src: ja, label: "Tica" },
       { src: doca, label: "Doca" },
-      { src: dusan, label: "Dusan" },
+      { src: dusan, label: "Borocki" },
       { src: coa, label: "Coa" },
       { src: jazic, label: "Jazic" },
       { src: sone, label: "Sone" },
-      { src: darko, label: "Darko" },
-      { src: mldj, label: "Mladji" },
+      { src: darko, label: "Slovak" },
+      { src: mldj, label: "Mladji Doca" },
     ],
     list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
     radius: 75,
@@ -265,18 +265,32 @@ class App extends React.Component {
           }}
         />
 
-        <div>
-          <span id="result">
-            {this.state.result !== null && (
-              <img
-                style={{ maxWidth: "80px", height: '100px', border: '2px solid rgb(178, 189, 26)' }}
-                src={this.state.list[this.state.result]}
-                alt="prize"
-              />
-            )}
-          </span>
-          <div style={{ marginTop: "30vw" }}>***</div>
-        </div>
+<div>
+  <span id="result">
+    {this.state.result !== null && (
+      <>
+        <img
+          style={{ width: "80px", height: '100px', border: '2px solid rgb(178, 189, 26)' }}
+          src={this.state.list[this.state.result]}
+          alt="prize"
+        />
+
+      </>
+    )}
+  </span>
+        <div class="card">
+  <div class="content">
+    <div class="back">
+      <div class="back-content">
+      {" "}
+      {this.state.allImages.find((image) => image.src === this.state.list[this.state.result])?.label}
+    </div>
+    </div>
+  </div>
+</div>
+  <div style={{ marginTop: "30vw" }}>&nbsp;</div>
+</div>
+
       </div>
     );
   }
