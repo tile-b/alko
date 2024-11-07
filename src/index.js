@@ -1,7 +1,9 @@
-import React from "react";
 import ReactDOM from "react-dom";
+import React from 'react';
 import "./styles.css";
 import "./button.css";
+import SideNav from "./SideNav";
+import './sidenav.css';
 
 import kum from "./kum.png";
 import ja from "./ja.png";
@@ -13,7 +15,7 @@ import dusan from "./dusan.png";
 import doca from "./doca.jpg";
 import mldj from './jovmldj.jpg';
 import vinjak from "./vinjak.png";
-import gajba from './gajba.png'
+import gajba from './gajba.png';
 
 class App extends React.Component {
   state = {
@@ -45,7 +47,6 @@ class App extends React.Component {
     this.preloadImages();
   }
   
-
   preloadImages = () => {
     const imagePromises = this.state.allImages.map(({ src }) => {
       return new Promise((resolve) => {
@@ -57,11 +58,11 @@ class App extends React.Component {
   
     Promise.all(imagePromises).then((images) => {
       this.setState({ images }, () => {
-        // Ensure wheel is rendered after images are loaded
         this.renderWheel();
       });
     });
   };
+
   handleCheckboxChange = (image, checked) => {
     this.setState(
       (prevState) => ({
@@ -151,24 +152,34 @@ class App extends React.Component {
     const angle = index * arc;
     const baseSize = radius * 3.33;
     const imageRadius = baseSize - 150;
-
+  
+    // Draw sector with color
     ctx.beginPath();
     ctx.arc(x, y, radius, startAngle, endAngle, false);
     ctx.lineWidth = radius * 2;
     ctx.strokeStyle = color;
     ctx.stroke();
-
+  
+    // Draw the image within the sector
     ctx.save();
     ctx.translate(
       baseSize + Math.cos(angle - arc / 2) * imageRadius,
       baseSize + Math.sin(angle - arc / 2) * imageRadius
     );
     ctx.rotate(angle - arc / 2 + Math.PI / 2);
+  
+    // Adjusted image dimensions for fitting
+    const imageWidth = 45;  // Set to a smaller size
+    const imageHeight = 60; // Set to a smaller size
+    const imageOffsetX = -imageWidth / 2;
+    const imageOffsetY = -imageHeight / 2;
+  
     if (image instanceof HTMLImageElement) {
-      ctx.drawImage(image, -30, -30, 45, 66);
+      ctx.drawImage(image, imageOffsetX, imageOffsetY, imageWidth, imageHeight);
     }
     ctx.restore();
   }
+  
 
   getColor() {
     const r = Math.floor(Math.random() * 255);
@@ -222,7 +233,15 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>ALKOHOLISANJE</h1>
+        
+        <h1>ALKOHOLISANJE        <SideNav
+          allImages={this.state.allImages}
+          list={this.state.list}
+          handleCheckboxChange={this.handleCheckboxChange}
+        /></h1>
+
+
+
         <button
           className="buttonB"
           onMouseEnter={this.reset}
@@ -234,7 +253,7 @@ class App extends React.Component {
           <div className="buttonB-bottom"></div>
           <div className="buttonB-base"></div>
         </button>
-        <span id="selector"><img style={{width: '32vw'}} src={vinjak} alt="vinj"/></span>
+        <span id="selector"><img style={{ width: '32vw' }} src={vinjak} alt="vinj" /></span>
 
         <canvas
           id="wheel"
@@ -245,43 +264,12 @@ class App extends React.Component {
             transition: `transform ${this.state.easeOut}s ease-out`,
           }}
         />
-<div style={{ zIndex: 1300, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px' }}>
-  {this.state.allImages.map(({ src, label }) => (
-    <label
-      key={label}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '10px',
-        fontSize: '16px',
-        fontFamily: 'Arial, sans-serif',
-        color: 'rgb(126 86 86 / 63%)',
-        cursor: 'pointer',
-        transition: 'transform 0.3s ease',
-      }}
-    >
-      <input
-        type="checkbox"
-        onChange={(e) => this.handleCheckboxChange(src, e.target.checked)}
-        checked={this.state.list.includes(src)}
-        style={{
-          width: '20px',
-          height: '20px',
-          marginRight: '10px',
-          cursor: 'pointer',
-        }}
-      />
-      <span style={{ textTransform: 'capitalize', fontWeight: '800' }}>{label}</span>
-    </label>
-  ))}
-</div>
-
 
         <div>
           <span id="result">
             {this.state.result !== null && (
               <img
-                style={{ maxWidth: "80px",height: '100px' , border: '2px solid rgb(178, 189, 26)' }}
+                style={{ maxWidth: "80px", height: '100px', border: '2px solid rgb(178, 189, 26)' }}
                 src={this.state.list[this.state.result]}
                 alt="prize"
               />
