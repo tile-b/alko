@@ -13,7 +13,7 @@ import jazic from "./jazic.png";
 import sone from "./sone.png";
 import dusan from "./dusan.png";
 import doca from "./doca.jpg";
-import mldj from './jovmldj.jpg';
+import mldj from './deja.png';
 import vinjak from "./vinjak.png";
 import gajba from './gajba.png';
 
