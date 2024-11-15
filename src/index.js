@@ -28,7 +28,7 @@ class App extends React.Component {
       { src: jazic, label: "Jazic" },
       { src: sone, label: "Sone" },
       { src: darko, label: "Slovak" },
-      { src: mldj, label: "Mladji Doca" },
+      { src: mldj, label: "Deja Mehanicar" },
     ],
     list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
     radius: 75,
