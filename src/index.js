@@ -8,12 +8,12 @@ import './sidenav.css';
 import kum from "./kum.png";
 import ja from "./ja.png";
 import coa from "./coa.png";
-import darko from "./darko.png";
+import sergej from "./sergej.jpg";
 import jazic from "./jazic.png";
 import sone from "./sone.png";
-import dusan from "./dusan.png";
-import doca from "./doca.jpg";
-import mldj from './deja.png';
+import velja from "./velja.jpg";
+import dida from "./dida.jpg";
+import kegla from './kegla.jpg';
 import vinjak from "./vinjak.png";
 import gajba from './gajba.png';
 
@@ -22,13 +22,13 @@ class App extends React.Component {
     allImages: [
       { src: kum, label: "Vlast" },
       { src: ja, label: "Tica" },
-      { src: doca, label: "Doca" },
-      { src: dusan, label: "Borocki" },
+      { src: velja, label: "Velja" },
+      { src: sergej, label: "Sergej" },
       { src: coa, label: "Coa" },
       { src: jazic, label: "Jazic" },
       { src: sone, label: "Sone" },
-      { src: darko, label: "Slovak" },
-      { src: mldj, label: "Deja Mehanicar" },
+      { src: dida, label: "Dida" },
+      { src: kegla, label: "Kegla" },
     ],
     list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
     radius: 75,
