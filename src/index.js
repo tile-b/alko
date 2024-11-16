@@ -30,7 +30,7 @@ class App extends React.Component {
       { src: dida, label: "Dida" },
       { src: kegla, label: "Kegla" },
     ],
-    list: [kum, ja, doca, dusan, coa, jazic, sone, darko, mldj],
+    list: [kum, ja, velja, sergej, coa, jazic, sone, dida, kegla],
     radius: 75,
     rotate: 0,
     easeOut: 0,
