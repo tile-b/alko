@@ -7,7 +7,7 @@ import './sidenav.css';
 
 import kum from "./kum.png";
 import ja from "./ja.png";
-import sreco from "./sreco.jpg";
+import deja from "./deja.png";
 import sergej from "./sergej.jpg";
 import jazic from "./jazic.png";
 import sone from "./sone.png";
@@ -24,13 +24,13 @@ class App extends React.Component {
       { src: ja, label: "Tica" },
       { src: velja, label: "Velja" },
       { src: sergej, label: "Sergej" },
-      { src: sreco, label: "Srećo" },
+      { src: deja, label: "Deja" },
       { src: jazic, label: "Jazic" },
       { src: sone, label: "Sone" },
       { src: dida, label: "Dida" },
       { src: kegla, label: "Kegla" },
     ],
-    list: [kum, ja, velja, sergej, sreco, jazic, sone, dida, kegla],
+    list: [kum, ja, velja, sergej, deja, jazic, sone, dida, kegla],
     radius: 75,
     rotate: 0,
     easeOut: 0,
